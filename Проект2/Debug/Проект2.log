@@ -1,0 +1,9 @@
+﻿  sourceCompany.cpp
+c:\users\пользователь\documents\visual studio 2015\projects\проект2\проект2\sourcecompany.cpp(162): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\пользователь\documents\visual studio 2015\projects\проект2\проект2\sourcecompany.cpp(169): warning C4244: return: преобразование "float" в "int", возможна потеря данных
+c:\users\пользователь\documents\visual studio 2015\projects\проект2\проект2\listh.h(113): warning C4244: return: преобразование "float" в "int", возможна потеря данных
+  c:\users\пользователь\documents\visual studio 2015\projects\проект2\проект2\listh.h(103): note: при компиляции функции-члена "<Нет данных>" класса <Нет данных>
+  c:\users\пользователь\documents\visual studio 2015\projects\проект2\проект2\sourcecompany.cpp(162): note: см. ссылку на создание экземпляров функции шаблон при компиляции "int List<Debt>::analis(void)"
+  c:\users\пользователь\documents\visual studio 2015\projects\проект2\проект2\header.h(114): note: см. ссылку на создание экземпляров класса шаблон при компиляции "List<Debt>"
+  Проект2.vcxproj -> C:\Users\Пользователь\documents\visual studio 2015\Projects\Проект2\Debug\Проект2.exe
+  Проект2.vcxproj -> C:\Users\Пользователь\documents\visual studio 2015\Projects\Проект2\Debug\Проект2.pdb (Partial PDB)
