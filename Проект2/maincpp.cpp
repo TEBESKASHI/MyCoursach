@@ -1,4 +1,5 @@
 #include "Header.h"
+List<Admin>adm;
 int onlyint() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
@@ -61,7 +62,7 @@ void userMenu(List<Admin> &adm) {
 		cout << "3.Удалить пользователя" << endl;
 		cout << "4.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
@@ -78,7 +79,7 @@ void userMenu(List<Admin> &adm) {
 			system("cls");
 			int del;
 			cout << "Введите номер пользователя, которого желаете удалить: ";
-			cin >> del;
+			del = onlyint();
 			del++;
 			cout << "Вы удалили:" << endl;
 			adm.deleteElement(del);
@@ -105,11 +106,12 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 		switch (x) {
 		case 1:
 		{
+			int rep = 0;
 			company = cmp.perebor();
 			float sum;
 			float p=0;
 			string s;
-			sum=company.analis(&p,&s);
+			sum=company.analis(&p,&s,&rep);
 			if (sum < p) {
 				cout << "\t\t\t\t\tПроанализировав компанию " << s << " было решено \n\t\t\t\t\tРазрешить выдачу кредита в размере не более чем " << p - sum << endl;
 			}
@@ -123,13 +125,20 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			int h = 0;
 			float money;
 			int times;
+			int rep=0;
 			company = cmp.perebor(&h);
 			bank = bn.perebor();
 			h=bank.creditPrint();
 			float sum;
 			float p = 0;
 			string s;
-			sum = company.analis(&p, &s);
+			sum = company.analis(&p, &s, &rep);
+			if (rep != 2) {
+				system("cls");
+				cout << "Эта компания не может взять кредит" << endl;
+				system("pause");
+				break;
+			}
 			while (true) {
 				cout << "Сумма: ";
 				money = onlyint();
@@ -140,13 +149,16 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			}
 			cout << "Введите срок: ";
 			times = onlyint();
+			system("cls");
 			credit.takeCredit(company,bank,h,money,times);
 			cr.addLastElement(credit);
 			system("pause");
 			break;
 		}
 		case 3: {
+			system("cls");
 			cr.print();
+			system("pause");
 			break;
 		}
 		case 0:return 0; break;
@@ -163,7 +175,7 @@ int editMenu(List<Company> &cmp, List<Bank> &bn) {
 		cout << "2.Редактирование банков" << endl;
 		cout << "3.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
@@ -191,7 +203,7 @@ int searchMenu(List<Company> &cmp, List<Bank> &bn) {
 		cout << "2.Поиск банков" << endl;
 		cout << "3.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
@@ -217,13 +229,13 @@ int delMenu(List<Company> &cmp, List<Bank> &bn) {
 		cout << "2.Удаление банков" << endl;
 		cout << "3.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
 			int del;
 			cout << "Введите номер компании, которую желаете удалить: ";
-			cin >> del;
+			del = onlyint();
 			cout << "Вы удалили:" << endl;
 			cmp.deleteElement(del);
 			system("pause");
@@ -231,7 +243,7 @@ int delMenu(List<Company> &cmp, List<Bank> &bn) {
 		case 2: {
 			system("cls"); 	int del;
 			cout << "Введите номер банка, который желаете удалить: ";
-			cin >> del;
+			del = onlyint();
 			cout << "Вы удалили:" << endl;
 			bn.deleteElement(del); system("pause");
 			break;
@@ -249,7 +261,7 @@ int printMenu(List<Company> &cmp, List<Bank> &bn) {
 		cout << "2.Просмотр банков" << endl;
 		cout << "4.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
@@ -277,7 +289,7 @@ int addMenu(List<Company> &cmp,List<Bank> &bn) {
 		cout << "2.Добавление банка" << endl;
 		cout << "3.Назад" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
@@ -316,7 +328,7 @@ int menu(List<Admin> &adm, List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 		cout << "9.Анализ кредитоспособности" << endl;
 		cout << "10.Управление пользователями" << endl;
 		cout << "0.Выход" << endl;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1:
 		{
@@ -364,7 +376,7 @@ int menu(List<Admin> &adm, List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 					cout << "1.Да" << endl;
 					cout << "2.Нет" << endl;
 					int x;
-					cin >> x;
+					x = onlyint();
 					switch (x) {
 					case 1: {
 						adm.saveA("Admin.txt");
@@ -419,6 +431,7 @@ BOOL WINAPI CtrlHandler(DWORD fdwCtrlType) {
 	{
 	case CTRL_CLOSE_EVENT:
 		Beep(600, 200);
+		adm.saveA("Admin.txt");
 		system("cls");
 		string str = "";
 		while (str.length()< 35) {
@@ -450,18 +463,14 @@ int main() {
 	srand(time(NULL));
 	system("color 0F");
 	Admin admin;
-	List<Admin>adm;
 	Company company;
 	List<Company>cmp;
 	Bank bank;
 	List<Bank>bn;
 	List<Credit>cr;
+	Credit credit;
 	SetConsoleCtrlHandler(CtrlHandler, TRUE);
-	admin.set();
-	adm.addLastElement(admin);
-	adm.print();
-	bn.print();
-	cmp.print();
+	adm.downloadInfoA(admin,"Admin.txt");
 	while (1) {
 		cout << "1.Вход" << endl;
 		cout << "2.Выход" << endl;
@@ -470,19 +479,18 @@ int main() {
 		switch (i) {
 		case 1: {
 			cout << "Введите логин: ";
-			char log[30];
-			cin >> log;
+			char log[10];
+			strcpy(log,onlystring(10));
 			cout << "Введите пароль: ";
-			char pas[30];
-			cin >> pas;
+			char pas[10];
+			strcpy(pas, onlystring(10));
 			int i = adm.compare(log, pas);
 			if (i == 1) {
 				system("cls");
-				cout << "Вы не админ, идите на``й,пожалуйста" << endl;
+				userMenu(adm);
 			}
 			else if (i == 2) {
 				system("cls");
-				cout << "Приветсвую, Администратор" << endl;
 				menu(adm,cmp,bn,cr);
 			}
 			else { system("cls"); cout << "Проверьте правильность ввода данных" << endl; }

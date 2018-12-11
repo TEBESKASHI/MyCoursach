@@ -17,17 +17,20 @@
 #include <ctype.h> 
 #include <typeinfo>
 using namespace std;
+int onlyint();
+char* onlystring(int N);
+void load(char *str);
 class Admin {
 protected:
-	char password[30];
-	char login[30];
+	char password[10];
+	char login[10];
 	int root;
 public:
 	void set() {
 		cout << "¬ведите логин: ";
-		cin >> this->login;
+		strcpy(this->login,onlystring(10));
 		cout << "¬ведите пароль: ";
-		cin >> this->password;
+		strcpy(this->password, onlystring(10));
 		cin >> this->root;
 	}
 	void print(int a) {
@@ -42,13 +45,12 @@ public:
 		if (strcmp(this->login, log) == 0 && strcmp(this->password, pas) == 0) {
 			return this->root;
 		}
-		else cout << "Kek";
 		return 0;
 	}
 };
 class Bank {
 protected:
-	char nameofbank[30];
+	char nameofbank[20];
 public:
 	void set();
 	void print(int a);
@@ -71,7 +73,7 @@ private:
 	class Credittype {
 	public:
 		friend class Credit;
-		char creditname[30];
+		char creditname[20];
 		float percent;
 		Credittype *next;
 		Credittype() {
@@ -84,8 +86,8 @@ private:
 class Company {
 protected:
 	friend class Credit;
-	char nameofcompany[30];
-	char specialization[30];
+	char nameofcompany[20];
+	char specialization[20];
 	float income;
 	float outcome;
 	int rep;
@@ -105,14 +107,14 @@ public:
 	void edit(int choice);
 	int selectFiltrCriteria();
 	void filtr(int choice, int a, int minAge, int maxAge);
-	float analis(float *p,string *s);
+	float analis(float *p,string *s,int *rep);
 	void sort(Company &obj, Company &obj1);
 	int printC(int a);
 private:
 	class Debt {
 	public:
 		friend class Credit;
-		char nameofdebt[30];
+		char nameofdebt[15];
 		float sumofdebt;
 		Debt *next;
 	public:
@@ -139,6 +141,3 @@ class Credit :public Bank{
 		void takeCredit(Company &company, Bank &bank,int a,float money,int times);
 		void print(int a);
 };
-int onlyint();
-char* onlystring(int N);
-void load(char *str);

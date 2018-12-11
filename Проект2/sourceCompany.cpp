@@ -2,11 +2,11 @@
 void Company::set() {
 	int a = 1;
 	cout << "Название компании: ";
-	cin >> this->nameofcompany;
+	strcpy(this->nameofcompany, onlystring(20));
 	cout << "Специализация компании";
-	cin >> this->specialization;
+	strcpy(this->specialization, onlystring(20));
 	cout << "Доход: ";
-	cin >> this->income;
+	this->income = onlyint();
 	cout << "Долги: ";
 	while (a) {
 		system("cls");
@@ -14,7 +14,7 @@ void Company::set() {
 		cout << "1.Да" << endl;
 		cout << "2.Нет" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: a = 0; break;
 		case 2:return; break;
@@ -25,18 +25,19 @@ void Company::set() {
 		if (this->begin == NULL) {
 			Debt *debt = new Debt;
 			cout << "Кому должна: ";
-			cin >> debt->nameofdebt;
+			strcpy(debt->nameofdebt, onlystring(15));
 			cout << "Сумма долга: ";
-			cin >> debt->sumofdebt;
+			debt->sumofdebt = onlyint();
 			debt->next = NULL;
 			begin = end = debt;
 		}
 		else {
 			Debt *debt = new Debt;
 			cout << "Кому должна: ";
-			cin >> debt->nameofdebt;
+			cout << "Кому должна: ";
+			strcpy(debt->nameofdebt, onlystring(15));
 			cout << "Сумма долга: ";
-			cin >> debt->sumofdebt;
+			debt->sumofdebt = onlyint();
 			debt->next = NULL;
 			end->next = debt;
 			end = debt;
@@ -191,34 +192,34 @@ void Company::edit(int choice) {
 	{
 		cout << "Редактируемое Название компании: " << this->nameofcompany << endl;
 		cout << "Новое Название компании: ";
-		cin >> this->nameofcompany;
+		strcpy(this->nameofcompany, onlystring(20));
 		break;
 	}
 	case 2:
 	{
 		cout << "Редактируемая Специализация компании: " << this->specialization << endl;
 		cout << "Новая Специализация компании: ";
-		cin >> this->specialization;
+		strcpy(this->specialization, onlystring(20));
 		break;
 	}
 	case 3:
 	{
 		cout << "Редактируемый доход компании: " << this->income << endl;
 		cout << "Новое доход компании: ";
-		cin >> this->income;
+		this->income = onlyint();
 		break;
 	}
 	case 4:
 	{
 		cout << "Редактируемое Название компании: " << this->nameofcompany << endl;
 		cout << "Новое Название компании: ";
-		cin >> this->nameofcompany;
+		strcpy(this->nameofcompany, onlystring(20));
 		cout << "Редактируемая Специализация компании: " << this->specialization << endl;
 		cout << "Новая Специализация компании: ";
-		cin >> this->specialization;
+		strcpy(this->specialization, onlystring(20));
 		cout << "Редактируемый доход компании: " << this->income << endl;
 		cout << "Новое доход компании: ";
-		cin >> this->income;
+		this->income = onlyint();
 		break;
 	}
 	}
@@ -239,7 +240,7 @@ void Company::sort(Company &obj, Company &obj1) {
 		std::swap(obj,obj1);
 	}
 }
-float Company::analis(float *p,string *s) {
+float Company::analis(float *p,string *s,int *rep) {
 	if (begin != NULL) {
 		Debt *debt = begin;
 		float sum = 0;
@@ -253,6 +254,10 @@ float Company::analis(float *p,string *s) {
 		if ((*p) > sum) {
 			this->rep = 2;
 		}
+		else {
+			this->rep = 1;
+		}
+		(*rep) = this->rep;
 		return sum;
 	}
 	else return 0;

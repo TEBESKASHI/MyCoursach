@@ -2,7 +2,7 @@
 void Bank::set() {
 	int a = 1;
 	cout << "Название банка: ";
-	cin >> this->nameofbank;
+	strcpy(this->nameofbank, onlystring(20));
 	cout << "Кредиты банка: ";
 	while (a ) {
 		system("cls");
@@ -20,18 +20,18 @@ void Bank::set() {
 		if (this->begin == NULL) {
 			Credittype *credit = new Credittype;
 			cout << "Введите название кредита: ";
-			cin >> credit->creditname;
+			strcpy(credit->creditname, onlystring(20));
 			cout << "Процент: ";
-			cin >> credit->percent;
+			credit->percent = onlyint();
 			credit->next = NULL;
 			begin = end = credit;
 		}
 		else {
 			Credittype *credit = new Credittype;
 			cout << "Введите название кредита: ";
-			cin >> credit->creditname;
+			strcpy(credit->creditname, onlystring(20));
 			cout << "Процент: ";
-			cin >> credit->percent;
+			credit->percent = onlyint();
 			credit->next = NULL;
 			end->next = credit;
 			end = credit;
@@ -41,7 +41,7 @@ void Bank::set() {
 		cout << "1.Да" << endl;
 		cout << "2.Нет" << endl;
 		int x;
-		cin >> x;
+		x = onlyint();
 		switch (x) {
 		case 1: break;
 		case 2:a = 1; break;
@@ -104,7 +104,7 @@ int Bank::selectSearchCriteria() {
 	int choice;
 	cout << "По чем ищем?" << endl;
 	cout << "1.По названию банка" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 

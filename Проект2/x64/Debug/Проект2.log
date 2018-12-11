@@ -1,4 +1,5 @@
-﻿  sourceCompany.cpp
-  sourceBank.cpp
-  Создание кода...
+﻿  maincpp.cpp
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(144): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(463): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(445): warning C4715: CtrlHandler: значение возвращается не при всех путях выполнения
   Проект2.vcxproj -> C:\Users\User\Desktop\Курсовая ООП\MyCoursach\x64\Debug\Проект2.exe
