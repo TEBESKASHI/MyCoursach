@@ -3,7 +3,7 @@ void Company::set() {
 	int a = 1;
 	cout << "Название компании: ";
 	strcpy(this->nameofcompany, onlystring(20));
-	cout << "Специализация компании";
+	cout << "Специализация компании: ";
 	strcpy(this->specialization, onlystring(20));
 	cout << "Доход: ";
 	this->income = onlyint();

@@ -419,7 +419,7 @@ void load(char *str) {
 	int i = 0;
 	while (i < st.length()) {
 		setcur(0, 0);
-		Sleep(30);
+		Sleep(50);
 		k += st[i];
 		cout << "\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t" << k;
 		i++;
@@ -430,16 +430,23 @@ BOOL WINAPI CtrlHandler(DWORD fdwCtrlType) {
 	switch (fdwCtrlType)
 	{
 	case CTRL_CLOSE_EVENT:
-		Beep(600, 200);
-		adm.saveA("Admin.txt");
 		system("cls");
+		adm.saveA("Admin.txt");
+		HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+		SetConsoleTextAttribute(hStdOut, BACKGROUND_GREEN | BACKGROUND_INTENSITY | BACKGROUND_BLUE | BACKGROUND_INTENSITY | BACKGROUND_RED | BACKGROUND_INTENSITY);
 		string str = "";
+		Beep(600, 200);
 		while (str.length()< 35) {
+			HANDLE kek = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(kek, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
 			setcur(0, 0);
 			Sleep(70);
-			cout << "\n\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t" << str;
+			cout << "\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t.................................";
+			cout << "\n\t\t\t\t\t" << str;
+			cout << "\n\t\t\t\t\t`````````````````````````````````";
 			str += "||";
 		}
+		system("cls");
 		return TRUE;
 	}
 }
