@@ -30,7 +30,7 @@ public:
 		cin >> this->password;
 		cin >> this->root;
 	}
-	void print() {
+	void print(int a) {
 		if (strcmp(this->login, "admin") == 0 && strcmp(this->password, "admin") == 0) { return; }
 		cout << "Логин пользователя: " << this->login << endl;
 		cout << "Пароль пользователя: " << this->password << endl;
@@ -48,22 +48,29 @@ public:
 };
 class Bank {
 protected:
-	friend class Credit;
 	char nameofbank[30];
 public:
 	void set();
-	void print();
-	Bank() {}
+	void print(int a);
+	Bank() {
+		this->begin = NULL;
+		this->end = NULL;
+	}
 	int selectSearchCriteria();
-	void search(int choice, char *input);
+	void search(int a, int choice, char *input);
 	int selectEditCriteria();
 	void edit(int choice);
+	int selectFiltrCriteria();
+	void filtr(int choice, int a, int minAge, int maxAge);
+	int creditPrint();
 	//int selectFiltrCriteria();
 	//void filtr(int choice, int a, int minAge, int maxAge);
 
 private:
+	friend class Credit;
 	class Credittype {
 	public:
+		friend class Credit;
 		char creditname[30];
 		float percent;
 		Credittype *next;
@@ -73,18 +80,6 @@ private:
 	};
 	Credittype *end;
 	Credittype *begin;
-};
-class Debt {
-protected:
-	char nameofdebt[30];
-	float sumofdebt;
-public:
-	Debt() {
-		this->sumofdebt = 0;
-	}
-	int set();
-	void print();
-	float sumdobt();
 };
 class Company {
 protected:
@@ -99,22 +94,39 @@ public:
 		this->outcome = NULL;
 		this->rep = NULL;
 		this->income = NULL;
+		this->begin = NULL;
+		this->end = NULL;
 	}
 	void set();
-	void print();
+	void print(int a);
 	int selectSearchCriteria();
-	void search(int choice, char *input);
+	void search(int a, int choice, char *input);
 	int selectEditCriteria();
 	void edit(int choice);
 	int selectFiltrCriteria();
 	void filtr(int choice, int a, int minAge, int maxAge);
-	int analis(float *p,string *s);
+	float analis(float *p,string *s);
 	void sort(Company &obj, Company &obj1);
 	int printC(int a);
-	List<Debt>debt;
+private:
+	class Debt {
+	public:
+		friend class Credit;
+		char nameofdebt[30];
+		float sumofdebt;
+		Debt *next;
+	public:
+		Debt() {
+			this->sumofdebt = NULL;
+		}
+	};
+	Debt *begin;
+	Debt *end;
 };
-class Credit:public Company,public Bank {
+class Credit :public Bank{
 	protected:
+		Company company;
+		Credittype credittype;
 		float sum;
 		int times;
 		char purpose[30];
@@ -124,7 +136,9 @@ class Credit:public Company,public Bank {
 			this->sum = NULL;
 			this->times = NULL;
 		}
-		void takeCredit(Company &company, Bank &bank,int a);
-		void print();
+		void takeCredit(Company &company, Bank &bank,int a,float money,int times);
+		void print(int a);
 };
 int onlyint();
+char* onlystring(int N);
+void load(char *str);

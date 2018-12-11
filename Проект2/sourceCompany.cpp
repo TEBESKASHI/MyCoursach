@@ -1,39 +1,79 @@
 #include "Header.h"
 void Company::set() {
-	Debt deb;
-	int a=0;
-	cout << "Введите название компании: ";
+	int a = 1;
+	cout << "Название компании: ";
 	cin >> this->nameofcompany;
-	cout << "Введите специализацию компании: ";
+	cout << "Специализация компании";
 	cin >> this->specialization;
-	cout << "Введите доходы компании: ";
+	cout << "Доход: ";
 	cin >> this->income;
-	cout << "Есть долги у компании?" << endl;
-	cout << "1.Да" << endl;
-	cout << "2.Нет" << endl;
-	int x;
-	cin >> x;
-	switch (x) {
-	case 1: {
-		while (true) {
-			int a = deb.set();
-			debt.addLastElement(deb);
-			debt.print();
-			if (a == 0) {
-				break;
-			}
+	cout << "Долги: ";
+	while (a) {
+		system("cls");
+		cout << "Есть ли у компании долги?" << endl;
+		cout << "1.Да" << endl;
+		cout << "2.Нет" << endl;
+		int x;
+		cin >> x;
+		switch (x) {
+		case 1: a = 0; break;
+		case 2:return; break;
+		default:cout << "Выберите да, либо нет" << endl; break;
 		}
-		break; }
-	case 2:return; break;
 	}
-
+	while (a == 0) {
+		if (this->begin == NULL) {
+			Debt *debt = new Debt;
+			cout << "Кому должна: ";
+			cin >> debt->nameofdebt;
+			cout << "Сумма долга: ";
+			cin >> debt->sumofdebt;
+			debt->next = NULL;
+			begin = end = debt;
+		}
+		else {
+			Debt *debt = new Debt;
+			cout << "Кому должна: ";
+			cin >> debt->nameofdebt;
+			cout << "Сумма долга: ";
+			cin >> debt->sumofdebt;
+			debt->next = NULL;
+			end->next = debt;
+			end = debt;
+		}
+		system("cls");
+		cout << "Продолжить?" << endl;
+		cout << "1.Да" << endl;
+		cout << "2.Нет" << endl;
+		int x;
+		x = onlyint();
+		switch (x) {
+		case 1: break;
+		case 2:a = 1; break;
+		}
+	}
 }
-void Company::print() {
-	cout << "Название компании: " << this->nameofcompany << endl;
-	cout << "Специализацию компании: " << this->specialization << endl;
-	cout << "Доходы компании: " << this->income << endl;
-	debt.print();
-}
+void Company::print(int a) {
+		Debt *debt = this->begin;
+		float sum = 0;
+		while (debt != NULL) {
+			sum += debt->sumofdebt;
+			debt = debt->next;
+		}
+		if (a == 1) {
+			cout << "|```````````````````|" << "````````````````````````|" << "`````````````````|" << "`````````````````|" << endl;
+			cout << "| Название компании |" << " Специализация компании |" << " Доходы компании |" << " Долгов на сумму |" << endl;
+			cout << "|```````````````````|" << "````````````````````````|" << "`````````````````|" << "`````````````````|" << endl;
+		}
+		if (a == 2) {
+			cout << "|" << setw(19) << this->nameofcompany << "|" << setw(24) << this->specialization << "|" << setw(17) << this->income << "|" << setw(17) << sum << "|" << endl;
+			cout << "|```````````````````|" << "````````````````````````|" << "`````````````````|" << "`````````````````|" << endl;
+		}
+		if (a == 3) {
+			cout << "|" << setw(19) << this->nameofcompany << "|" << setw(24) << this->specialization << "|" << setw(17) << this->income << "|" << setw(17) << sum << "|" << endl;
+			cout << "`````````````````````" << "`````````````````````````" << "``````````````````" << "``````````````````" << endl;
+		}
+	}
 int Company::printC(int a) {
 	if (a == 0) {
 		cout << "\t\t\tЗдесь выводятся компании, прошедшие анализ" << endl;
@@ -52,36 +92,84 @@ int Company::selectSearchCriteria() {
 	cout << "1.По названию компании" << endl;
 	cout << "2.По специализации компании" << endl;
 	cout << "3.По доходам компании" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 
 //функция поиска продукта
-void Company::search(int choice, char *input) {
-	switch (choice) {
-	case 1:
-	{
-		if (strcmp(this->nameofcompany, input) == 0) {
-			print();
+void Company::search(int a,int choice, char *input) {
+	if (begin != NULL) {
+		Debt *debt = begin;
+		float sum = 0;
+		while (debt != NULL) {
+			sum += debt->sumofdebt;
+			debt = debt->next;
 		}
-		break;
-	}
-	case 2:
-	{
-		if (strcmp(this->specialization, input) == 0) {
-			print();
+		if (a == 1) {
+			cout << "|```````````````````|" << "````````````````````````|" << "`````````````````|" << "`````````````````|" << endl;
+			cout << "| Название компании |" << " Специализация компании |" << " Доходы компании |" << " Долгов на сумму |" << endl;
+			cout << "|```````````````````|" << "````````````````````````|" << "`````````````````|" << "`````````````````|" << endl;
 		}
-		break;
-	}
-	case 3:
-	{
-		int inputInteger = atoi(input);
-		if (this->income== inputInteger) {
-			print();
+		if (a == 2) {
+			switch (choice) {
+			case 1:
+			{
+				if (strcmp(this->nameofcompany, input) == 0) {
+					cout << "|" << setw(19) << this->nameofcompany << "|" << setw(24) << this->specialization << "|" << setw(17) << this->income << "|" << setw(17) << sum << "|" << endl;
+					cout << "|```````````````````|" << "````````````````````````|" << "`````````````````|" << "`````````````````|" << endl;
+				}
+				break;
+			}
+			case 2:
+			{
+				if (strcmp(this->specialization, input) == 0) {
+					cout << "|" << setw(19) << this->nameofcompany << "|" << setw(24) << this->specialization << "|" << setw(17) << this->income << "|" << setw(17) << sum << "|" << endl;
+					cout << "|```````````````````|" << "````````````````````````|" << "`````````````````|" << "`````````````````|" << endl;
+				}
+				break;
+			}
+			case 3:
+			{
+				int inputInteger = atoi(input);
+				if (this->income == inputInteger) {
+					cout << "|" << setw(19) << this->nameofcompany << "|" << setw(24) << this->specialization << "|" << setw(17) << this->income << "|" << setw(17) << sum << "|" << endl;
+					cout << "|```````````````````|" << "````````````````````````|" << "`````````````````|" << "`````````````````|" << endl;
+				}
+				break;
+			}
+			}
 		}
-		break;
+		if (a == 3) {
+			switch (choice) {
+			case 1:
+			{
+				if (strcmp(this->nameofcompany, input) == 0) {
+					cout << "|" << setw(19) << this->nameofcompany << "|" << setw(24) << this->specialization << "|" << setw(17) << this->income << "|" << setw(17) << sum << "|" << endl;
+					cout << "`````````````````````" << "`````````````````````````" << "``````````````````" << "``````````````````" << endl;
+				}
+				break;
+			}
+			case 2:
+			{
+				if (strcmp(this->specialization, input) == 0) {
+					cout << "|" << setw(19) << this->nameofcompany << "|" << setw(24) << this->specialization << "|" << setw(17) << this->income << "|" << setw(17) << sum << "|" << endl;
+					cout << "`````````````````````" << "`````````````````````````" << "``````````````````" << "``````````````````" << endl;
+				}
+				break;
+			}
+			case 3:
+			{
+				int inputInteger = atoi(input);
+				if (this->income == inputInteger) {
+					cout << "|" << setw(19) << this->nameofcompany << "|" << setw(24) << this->specialization << "|" << setw(17) << this->income << "|" << setw(17) << sum << "|" << endl;
+					cout << "`````````````````````" << "`````````````````````````" << "``````````````````" << "``````````````````" << endl;
+				}
+				break;
+			}
+			}
+		}
 	}
-	}
+	else return;
 }
 
 //выбор критерия для редактирования
@@ -92,7 +180,7 @@ int Company::selectEditCriteria() {
 	cout << "2.Специализацию компании" << endl;
 	cout << "3.Доход компании" << endl;
 	cout << "4.Вcе" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
 }
 
@@ -140,55 +228,65 @@ int Company::selectFiltrCriteria() {
 	system("cls");
 	cout << "Меню фильтрации" << endl;
 	cout << "1.Фильтрация по доходам" << endl;
-	cin >> choice;
+	choice = onlyint();
 	return choice;
-}
-float Debt::sumdobt() {
-	return this->sumofdebt;
 }
 bool names(char left[30], char right[30]) {
 	return strcmp(left, right) > 0;
 }
 void Company::sort(Company &obj, Company &obj1) {
 	if (names(obj.nameofcompany, obj1.nameofcompany)) {
-		std::swap(obj.nameofcompany, obj1.nameofcompany);
-		std::swap(obj.income, obj1.income);
-		std::swap(obj.rep, obj1.rep);
-		std::swap(obj.outcome, obj1.outcome);
+		std::swap(obj,obj1);
 	}
 }
-int Company::analis(float *p,string *s) {
-	float sum;
-	sum = debt.analis();
-	(*p) = this->income;
-	(*s) = this->nameofcompany;
-	this->outcome = sum;
-	if ((*p) > sum) {
-		this->rep = 2;
+float Company::analis(float *p,string *s) {
+	if (begin != NULL) {
+		Debt *debt = begin;
+		float sum = 0;
+		while (debt != NULL) {
+			sum += debt->sumofdebt;
+			debt = debt->next;
+		}
+		(*p) = this->income;
+		(*s) = this->nameofcompany;
+		this->outcome = sum;
+		if ((*p) > sum) {
+			this->rep = 2;
+		}
+		return sum;
 	}
-	return sum;
+	else return 0;
 }
 void Company::filtr(int choice,  int a, int minAge, int maxAge) {
-	switch (choice) {
-	case 1: {
-		if (a == 1) {
-			cout << "|`````````|" << "```````````|" << endl;
-			cout << "| Название|" << "   Доходы  |" << endl;
+	if (begin != NULL) {
+		Debt *debt = begin;
+		float sum = 0;
+		while (debt != NULL) {
+			sum += debt->sumofdebt;
+			debt = debt->next;
 		}
-		else if (a == 2) {
-			if (this->income > minAge && this->income < maxAge) {
-				cout << "|`````````|" << "```````````|" << endl;
-				cout << "|" << setw(9) << this->nameofcompany << "|" << setw(11) << this->income << "|" << endl;
+		switch (choice) {
+		case 1: {
+			if (a == 1) {
+				cout << "|```````````````````|" << "````````````````````````|" << "`````````````````|" << "`````````````````|" << endl;
+				cout << "| Название компании |" << " Специализация компании |" << " Доходы компании |" << " Долгов на сумму |" << endl;
+				cout << "|```````````````````|" << "````````````````````````|" << "`````````````````|" << "`````````````````|" << endl;
 			}
-		}
-		else {
-			if (this->income > minAge && this->income < maxAge) {
-				cout << "|`````````|" << "```````````|" << endl;
-				cout << "|" << setw(9) << this->nameofcompany << "|" << setw(11) << this->income << "|" << endl;
-				cout << "``````````" << "`````````````" << endl;
+			else if (a == 2) {
+				if (this->income > minAge && this->income < maxAge) {
+					cout << "|" << setw(19) << this->nameofcompany << "|" << setw(24) << this->specialization << "|" << setw(17) << this->income << "|" << setw(17) << sum << "|" << endl;
+					cout << "|```````````````````|" << "````````````````````````|" << "`````````````````|" << "`````````````````|" << endl;
+				}
 			}
+			else {
+				if (this->income > minAge && this->income < maxAge) {
+					cout << "|" << setw(19) << this->nameofcompany << "|" << setw(24) << this->specialization << "|" << setw(17) << this->income << "|" << setw(17) << sum << "|" << endl;
+					cout << "`````````````````````" << "`````````````````````````" << "``````````````````" << "``````````````````" << endl;
+				}
+			}
+			break;
 		}
-		break;
+		}
 	}
-	}
+	else return;
 }

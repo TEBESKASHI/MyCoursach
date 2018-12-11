@@ -114,7 +114,6 @@
     <ClCompile Include="sourceBank.cpp" />
     <ClCompile Include="sourceCompany.cpp" />
     <ClCompile Include="SourceCRedit.cpp" />
-    <ClCompile Include="sourceDebt.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Header.h" />

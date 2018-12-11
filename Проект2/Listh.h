@@ -1,3 +1,4 @@
+//шаблон List
 template <typename T>
 class List {
 public:
@@ -15,6 +16,9 @@ public:
 	void downloadInfoA(T data, char *path);
 	void decrypt();
 	int getSize() { return size; }
+	//для перехода по добавленным элементам
+	//index- номер возвращаемого элемента
+	T & operator[](const int index);
 	void downloadInfo(T data, char *path);
 	void save(char *path);
 	void print();
@@ -22,8 +26,9 @@ public:
 	void search();
 	void edit();
 	void filtr();
+	void profit();
+	void check();
 	int analis();
-	void printC();
 	int compare(char *log, char *pas);
 	T perebor() {
 		Node<T> *p = first;
@@ -31,13 +36,12 @@ public:
 		int number;
 		int a = 0;
 		int k = getSize();
-		cout << "Введите номер: ";
-		cin >> number;
+		number = onlyint();
 		number--;
 		cout << endl;
-		while (number >= k) {
+		while (number >= k || number <0) {
 			cout << "Нет такого номера, повторите ввод: ";
-			cin >> number;
+			number = onlyint();
 			number--;
 			system("cls");
 		}
@@ -49,17 +53,17 @@ public:
 	}
 	T perebor(int *delelem) {
 		Node<T> *p = first;
-		printC();
+		print();
 		int number;
 		int a = 0;
 		int k = getSize();
-		cin >> number;
+		number = onlyint();
 		(*delelem) = number;
 		number--;
 		cout << endl;
-		while (number >= k) {
+		while (number >= k || number<0) {
 			cout << "Нет такого номера, повторите ввод: ";
-			cin >> number;
+			number = onlyint();
 			number--;
 			system("cls");
 		}
@@ -73,7 +77,7 @@ private:
 	template<typename T>
 	class Node {
 	public:
-		Node *pNext;
+		Node * pNext;
 		T data;
 		Node(T data = T(), Node *pNext = NULL) {
 			this->data = data;
@@ -99,19 +103,7 @@ int List<T>::compare(char *log, char *pas) {
 	}
 	return i;
 }
-template<typename T>
-int List<T>::analis() {
-	float i = 0;
-	{
-		Node<T> *p = first;
-		while (p != NULL)
-		{
-			i += p->data.sumdobt();
-			p = p->pNext;
-		}
-	}
-	return i;
-}
+
 //загрукза из файла
 template<typename T>
 void List<T>::downloadInfoA(T data, char *path) {
@@ -346,6 +338,35 @@ void List<T>::decrypt()
 	fout << result;
 }
 
+
+template<typename T>
+void List<T>::check() {
+	Node<T> *p = first;
+	time_t a = 0;
+	int h = 1;
+	while (p != NULL)
+	{
+		a = p->data.checktime();
+		if (a != 0) {
+			p->data.printC(a);
+			system("cls");
+		}
+		p = p->pNext;
+		h++;
+	}
+}
+template<typename T>
+void List<T>::profit() {
+	Node<T> *p = first;
+	int profit = 0;
+	while (p != NULL)
+	{
+		profit += p->data.profit();
+		p = p->pNext;
+	}
+	p->data.profit(profit);
+}
+
 template<typename T>
 List<T>::List() {
 	size = 0;
@@ -360,7 +381,7 @@ List<T>::~List() {
 //добавить в конец списка
 template<typename T>
 void List<T>::addLastElement(T data) {
-	if (first == nullptr) {
+	if (first == NULL) {
 		first = new Node<T>(data, first);
 	}
 	else {
@@ -376,29 +397,20 @@ void List<T>::addLastElement(T data) {
 //вывод на экран
 template<typename T>
 void List<T>::print() {
-	{
-		Node<T> *p = first;
-		while (p != NULL)
-		{
-			p->data.print();
-			p = p->pNext;
-		}
+	Node<T> *p = first;
+	if (p == NULL) {
+		cout << "Ничего нету" << endl;
+		return;
 	}
-}
-template<typename T>
-void List<T>::printC() {
+	p->data.print(1);
+	while (p->pNext != NULL)
 	{
-		int k = 0;
-		int a;
-		Node<T> *p = first;
-		while (p != NULL)
-		{
-			a=p->data.printC(k);
-			p = p->pNext;
-			k++;
-		}
+		p->data.print(2);
+		p = p->pNext;
 	}
+	p->data.print(3);
 }
+
 //сортировка
 template<typename T>
 void List<T>::sort() {
@@ -430,9 +442,9 @@ void List<T>::filtr() {
 		int minAge;
 		int maxAge;
 		cout << "ОТ: ";
-		cin >> minAge;
+		minAge = onlyint();
 		cout << "До: ";
-		cin >> maxAge;
+		maxAge = onlyint();
 		if (minAge > maxAge) {
 			int temp;
 			temp = minAge;
@@ -459,8 +471,16 @@ void List<T>::edit() {
 		cout << "Кого хотите изменить?: ";
 		int number;
 		int h = 0;
-		cin >> number;
+		int k = getSize();
+		number = onlyint();
 		number--;
+		cout << endl;
+		while (number >= k || number <0) {
+			cout << "Нет такого номера, повторите ввод: ";
+			number = onlyint();
+			number--;
+			system("cls");
+		}
 		while (h != number)
 		{
 			p = p->pNext;
@@ -479,14 +499,32 @@ void List<T>::search() {
 		choice = p->data.selectSearchCriteria();
 		char input[30];
 		cout << "Введите данные для поиска: ";
-		cin >> input;
-		while (p != NULL)
+		strcpy(input, onlystring(30));
+		p->data.search(1, choice, input);
+		while (p->pNext != NULL)
 		{
-			p->data.search(choice, input);
+			p->data.search(2, choice, input);
 			p = p->pNext;
 		}
+		p->data.search(3, choice, input);
 	}
 }
+//перегрузка [] для итераций
+template<typename T>
+T & List<T>::operator[](const int index) {
+	int counter = 0;
+	Node<T> *current = this->first;
+	while (current != nullptr) {
+		//если счетчик дошел до нужного индекса,то
+		//достаем из этого элемента data
+		if (counter == index) {
+			return current->data;
+		}
+		current = current->pNext;
+		counter++;
+	}
+}
+
 //удаление первого элемиента списка
 template<typename T>
 void List<T>::deleteFirstElement() {
@@ -506,7 +544,7 @@ void List<T>::deleteFirstElement() {
 //полная очистка списка
 template<typename T>
 void List<T>::clearList() {
-	while (size!=0) {
+	while (size) {
 		deleteFirstElement();
 	}
 }
@@ -542,21 +580,22 @@ void List<T>::insertElement(T data, int index) {
 template<typename T>
 void List<T>::deleteElement(int index) {
 	index--;
+	int i = getSize();
+	i--;
+	if (i < index) {
+		system("cls");
+		cout << "Невозможно удалить то, чего нет" << endl;
+		return;
+	}
 	if (index < 0) {
-		cout << "Некорректный ввод" << endl;
+		cout << "Невозможно удалить то, чего нет" << endl;
 	}
 	else if (index == 0) {
-		first->data.print();
+		first->data.print(1);
+		first->data.print(3);
 		deleteFirstElement();
 	}
 	else {
-		int i = getSize();
-		i--;
-		if (i < index) {
-			system("cls");
-			cout << "Невозможно удалить то, чего нет" << endl;
-			return;
-		}
 		Node<T> *prevElem = this->first;
 		//находим предшествующий и делаем указатель на удаляемый эл.
 		for (int i = 1; i < index - 1; i++) {
@@ -564,7 +603,8 @@ void List<T>::deleteElement(int index) {
 		}
 		Node<T> *toDelete = prevElem->pNext;
 		prevElem->pNext = toDelete->pNext;
-		toDelete->data.print();
+		toDelete->data.print(1);
+		toDelete->data.print(3);
 		delete toDelete;
 		size--;
 	}
@@ -610,3 +650,17 @@ void List<T>::save(char *path) {
 	}
 	fout.close();
 }
+template<typename T>
+int List<T>::analis() {
+	float i = 0;
+	{
+		Node<T> *p = first;
+		while (p != NULL)
+		{
+			i += p->data.sumdobt();
+			p = p->pNext;
+		}
+	}
+	return i;
+}
+

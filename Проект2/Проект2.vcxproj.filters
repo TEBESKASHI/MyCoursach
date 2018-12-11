@@ -24,9 +24,6 @@
     <ClCompile Include="sourceCompany.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
-    <ClCompile Include="sourceDebt.cpp">
-      <Filter>Файлы исходного кода</Filter>
-    </ClCompile>
     <ClCompile Include="SourceCRedit.cpp">
       <Filter>Файлы исходного кода</Filter>
     </ClCompile>
