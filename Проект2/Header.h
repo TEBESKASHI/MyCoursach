@@ -31,7 +31,6 @@ public:
 		strcpy(this->login,onlystring(10));
 		cout << "¬ведите пароль: ";
 		strcpy(this->password, onlystring(10));
-		cin >> this->root;
 	}
 	void print(int a) {
 		if (strcmp(this->login, "admin") == 0 && strcmp(this->password, "admin") == 0) { return; }
@@ -138,6 +137,8 @@ class Credit :public Bank{
 			this->sum = NULL;
 			this->times = NULL;
 		}
+		float profit();
 		void takeCredit(Company &company, Bank &bank,int a,float money,int times);
 		void print(int a);
+		void setcur(int x, int y);
 };

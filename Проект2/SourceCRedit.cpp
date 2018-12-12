@@ -1,4 +1,7 @@
 #include "Header.h"
+float Credit::profit() {
+	return (this->sum*this->credittype.percent / 100 * this->times);
+}
 void Credit::takeCredit(Company &cmp, Bank &bn,int a,float money,int times) {
 	Credittype *credittype = bn.begin;
 	if (cmp.rep==1) {

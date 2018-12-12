@@ -15,6 +15,7 @@ public:
 	void encryption();
 	void downloadInfoA(T data, char *path);
 	void decrypt();
+	int bisnes();
 	int getSize() { return size; }
 	//для перехода по добавленным элементам
 	//index- номер возвращаемого элемента
@@ -26,7 +27,6 @@ public:
 	void search();
 	void edit();
 	void filtr();
-	void profit();
 	void check();
 	int analis();
 	int compare(char *log, char *pas);
@@ -342,29 +342,15 @@ void List<T>::decrypt()
 template<typename T>
 void List<T>::check() {
 	Node<T> *p = first;
-	time_t a = 0;
 	int h = 1;
 	while (p != NULL)
 	{
-		a = p->data.checktime();
 		if (a != 0) {
 			p->data.printC(a);
-			system("cls");
 		}
 		p = p->pNext;
 		h++;
 	}
-}
-template<typename T>
-void List<T>::profit() {
-	Node<T> *p = first;
-	int profit = 0;
-	while (p != NULL)
-	{
-		profit += p->data.profit();
-		p = p->pNext;
-	}
-	p->data.profit(profit);
 }
 
 template<typename T>
@@ -393,7 +379,21 @@ void List<T>::addLastElement(T data) {
 	}
 	size++;
 }
-
+template<typename T>
+int List<T>::bisnes() {
+	Node<T> *p = first;
+	int sum=0;
+	if (p == NULL) {
+		cout << "Ничего нету" << endl;
+		return 0;
+	}
+	while (p != NULL)
+	{
+		sum += p->data.profit();
+		p = p->pNext;
+	}
+	return sum;
+}
 //вывод на экран
 template<typename T>
 void List<T>::print() {

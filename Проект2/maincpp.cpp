@@ -1,5 +1,12 @@
 #include "Header.h"
 List<Admin>adm;
+void setcur(int x, int y)
+{
+	COORD coord;
+	coord.X = x;
+	coord.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+};
 int onlyint() {
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
@@ -60,7 +67,7 @@ void userMenu(List<Admin> &adm) {
 		cout << "1.Добавить пользователя" << endl;
 		cout << "2.Список пользователей" << endl;
 		cout << "3.Удалить пользователя" << endl;
-		cout << "4.Назад" << endl;
+		cout << "0.Выход" << endl;
 		int x;
 		x = onlyint();
 		switch (x) {
@@ -85,7 +92,7 @@ void userMenu(List<Admin> &adm) {
 			adm.deleteElement(del);
 			system("pause");
 			break; }
-		case 4:system("cls"); return; break;
+		case 0:system("cls"); return; break;
 		default:system("cls"); cout << "Нет такого пункта меню" << endl; break;
 		}
 	}
@@ -95,12 +102,14 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 	Bank bank;
 	Credit credit;
 	while (1) {
+		system("color 0F");
 		load("Меню анализа");
 		cout << "\t\t\t\t\tМеню анализа" << endl;
 		cout << "1.Анализ кредитоспособности" << endl;
 		cout << "2.Взять кредит" << endl;
 		cout << "3.Активные кредиты" << endl;
-		cout << "0.Назад" << endl;
+		cout << "4.Заработок банка (Бизнес функция)" << endl;
+		cout << "0.Выход" << endl;
 		int x;
 		x = onlyint();
 		switch (x) {
@@ -152,7 +161,23 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			system("cls");
 			credit.takeCredit(company,bank,h,money,times);
 			cr.addLastElement(credit);
+			cout << "\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t" << endl;
+			HANDLE kek = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(kek, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
+			string st = "    /\n\t\t\t\t\t\t\\  /\n\t\t\t\t\t\t \\/";
+			string k = "";
+			int i = 0;
+			while (i < st.length()) {
+				setcur(0, 0);
+				Sleep(100);
+				k += st[i];
+				cout << k;
+				i++;
+			}
+			HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+			SetConsoleTextAttribute(hStdOut, FOREGROUND_GREEN | FOREGROUND_INTENSITY | FOREGROUND_BLUE | FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_INTENSITY);
 			system("pause");
+			system("color 0F");
 			break;
 		}
 		case 3: {
@@ -161,6 +186,13 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			system("pause");
 			break;
 		}
+		case 4: {
+			system("cls");
+			int sum;
+			sum = cr.bisnes();
+			cout << "Прибыль банков: " << sum << endl;
+			system("pause");
+			break; }
 		case 0:return 0; break;
 		}
 	}
@@ -173,7 +205,7 @@ int editMenu(List<Company> &cmp, List<Bank> &bn) {
 		load("Меню редактирования");
 		cout << "1.Редактирование компаний" << endl;
 		cout << "2.Редактирование банков" << endl;
-		cout << "3.Назад" << endl;
+		cout << "0.Выход" << endl;
 		int x;
 		x = onlyint();
 		switch (x) {
@@ -188,7 +220,7 @@ int editMenu(List<Company> &cmp, List<Bank> &bn) {
 			system("pause");
 			break;
 		}
-		case 3:system("cls"); return 0; break;
+		case 0:system("cls"); return 0; break;
 		default:system("cls"); cout << "Нет такого пункта меню"; break;
 		}
 	}
@@ -199,9 +231,9 @@ int searchMenu(List<Company> &cmp, List<Bank> &bn) {
 	while (1) {
 		system("cls");
 		load("Меню поиска");
-		cout << "1.Поиск компаний" << endl;
-		cout << "2.Поиск банков" << endl;
-		cout << "3.Назад" << endl;
+		cout << "1.Поиск по компаниям" << endl;
+		cout << "2.Поиск банкам" << endl;
+		cout << "0.Выход" << endl;
 		int x;
 		x = onlyint();
 		switch (x) {
@@ -216,7 +248,7 @@ int searchMenu(List<Company> &cmp, List<Bank> &bn) {
 			system("pause");
 			break;
 		}
-		case 3:system("cls"); return 0; break;
+		case 0:system("cls"); return 0; break;
 		default:system("cls"); cout << "Нет такого пункта меню"; break;
 		}
 	}
@@ -227,13 +259,14 @@ int delMenu(List<Company> &cmp, List<Bank> &bn) {
 		load("Меню удаления");
 		cout << "1.Удаление компаний" << endl;
 		cout << "2.Удаление банков" << endl;
-		cout << "3.Назад" << endl;
+		cout << "0.Назад" << endl;
 		int x;
 		x = onlyint();
 		switch (x) {
 		case 1: {
 			system("cls");
 			int del;
+			cmp.print();
 			cout << "Введите номер компании, которую желаете удалить: ";
 			del = onlyint();
 			cout << "Вы удалили:" << endl;
@@ -242,13 +275,14 @@ int delMenu(List<Company> &cmp, List<Bank> &bn) {
 			break; }
 		case 2: {
 			system("cls"); 	int del;
+			bn.print();
 			cout << "Введите номер банка, который желаете удалить: ";
 			del = onlyint();
 			cout << "Вы удалили:" << endl;
 			bn.deleteElement(del); system("pause");
 			break;
 		}
-		case 3:system("cls"); return 0; break;
+		case 0:system("cls"); return 0; break;
 		default:system("cls"); cout << "Нет такого пункта меню"; break;
 		}
 	}
@@ -259,7 +293,7 @@ int printMenu(List<Company> &cmp, List<Bank> &bn) {
 		load("База данных");
 		cout << "1.Просмотр компаний" << endl;
 		cout << "2.Просмотр банков" << endl;
-		cout << "4.Назад" << endl;
+		cout << "0.Выход" << endl;
 		int x;
 		x = onlyint();
 		switch (x) {
@@ -272,9 +306,7 @@ int printMenu(List<Company> &cmp, List<Bank> &bn) {
 			system("cls"); bn.print(); system("pause");
 			break;
 		}
-		case 3: {
-			break; }
-		case 4:system("cls"); return 0; break;
+		case 0:system("cls"); return 0; break;
 		default:system("cls"); cout << "Нет такого пункта меню"; break;
 		}
 	}
@@ -287,7 +319,7 @@ int addMenu(List<Company> &cmp,List<Bank> &bn) {
 		load("Меню добавления");
 		cout << "1.Добавление компании" << endl;
 		cout << "2.Добавление банка" << endl;
-		cout << "3.Назад" << endl;
+		cout << "0.Выход" << endl;
 		int x;
 		x = onlyint();
 		switch (x) {
@@ -300,12 +332,59 @@ int addMenu(List<Company> &cmp,List<Bank> &bn) {
 		case 2: {
 			bank.set();
 			bn.addLastElement(bank);
-			bank.print(1);
 			system("pause");
 			break;
 		}
-		case 3:system("cls"); return 0; break;
+		case 0:system("cls"); return 0; break;
 		default:system("cls"); cout << "Нет такого пункта меню"; break;
+		}
+	}
+}
+void user(List<Company> &cmp, List<Bank> &bn, List<Credit> &cr) {
+	while (1) {
+		load("Меню пользователя");
+		cout << "1.Просмотр" << endl;
+		cout << "2.Поиск" << endl;
+		cout << "3.Фильтрация" << endl;
+		cout << "4.Активные кредиты" << endl;
+		cout << "5.Заработок банка (Бизнес функция)" << endl;
+		cout << "0.Выход" << endl;
+		int x;
+		x = onlyint();
+		switch (x) {
+		case 1: {
+			system("cls");
+			printMenu(cmp, bn);
+			system("pause");
+			break;
+		}
+		case 2: {
+			system("cls");
+			searchMenu(cmp, bn);
+			system("pause");
+			break;
+		}
+		case 3: {
+			system("cls");
+			cmp.filtr();
+			system("pause");
+			break;
+		}
+		case 4: {
+			system("cls");
+			cr.print();
+			system("pause");
+			break;
+		}
+		case 5: {
+			system("cls");
+			int sum;
+			sum = cr.bisnes();
+			cout << "Прибыль банков: " << sum << endl;
+			system("pause");
+			break; }
+		case 0:return; break;
+		default:system("cls"); cout << "Нет такого пункта меню" << endl; break;
 		}
 	}
 }
@@ -319,13 +398,13 @@ int menu(List<Admin> &adm, List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 		load("Меню администратора");
 		cout << "1.Добавление" << endl;
 		cout << "2.Удаление" << endl;
-		cout << "3.Фильтрация" << endl;
-		cout << "4.База данных(Показать)" << endl;
-		cout << "5.Сохранить в файл" << endl;
+		cout << "3.Редактирование" << endl;
+		cout << "4.Просмотр" << endl;
+		cout << "5.Анализ кредитоспособности" << endl;
 		cout << "6.Поиск" << endl;
-		cout << "7.Редактирование" << endl;
+		cout << "7.Фильтрация" << endl;
 		cout << "8.Сортировка" << endl;
-		cout << "9.Анализ кредитоспособности" << endl;
+		cout << "9.Сохранить в файл" << endl;
 		cout << "10.Управление пользователями" << endl;
 		cout << "0.Выход" << endl;
 		x = onlyint();
@@ -340,7 +419,7 @@ int menu(List<Admin> &adm, List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			delMenu(cmp,bn);
 			break;
 		}
-		case 3: {
+		case 7: {
 			cmp.filtr();
 			break;
 		}
@@ -349,7 +428,7 @@ int menu(List<Admin> &adm, List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			printMenu(cmp,bn);
 			break;
 		}
-		case 5:
+		case 9:
 		{
 			a = 1;
 			adm.saveA("Admin.txt");
@@ -361,12 +440,12 @@ int menu(List<Admin> &adm, List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			searchMenu(cmp,bn);
 			break;
 		}
-		case 7:editMenu(cmp,bn); break;
+		case 3:editMenu(cmp,bn); break;
 		case 8: {
 			cmp.sort();
 			break;
 		}
-		case 9: {analiz(cmp,bn,cr); break; }
+		case 5: {analiz(cmp,bn,cr); break; }
 		case 0:
 		{
 			system("cls");
@@ -404,13 +483,6 @@ int menu(List<Admin> &adm, List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 	system("pause");
 	return 0;
 }
-void setcur(int x, int y)
-{
-	COORD coord;
-	coord.X = x;
-	coord.Y = y;
-	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-};
 void load(char *str) {
 	system("cls");
 	string st = "";
@@ -494,7 +566,7 @@ int main() {
 			int i = adm.compare(log, pas);
 			if (i == 1) {
 				system("cls");
-				userMenu(adm);
+				user(cmp,bn,cr);
 			}
 			else if (i == 2) {
 				system("cls");
