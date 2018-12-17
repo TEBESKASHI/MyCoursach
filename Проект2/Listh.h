@@ -30,6 +30,28 @@ public:
 	void check();
 	int analis();
 	int compare(char *log, char *pas);
+	T compare(char *log, char *pos,int *k) {
+		int i = 0;
+		Node<T> *p = first;
+		{
+			while (p != NULL)
+			{
+				i = p->data.compare(log, pos);
+				if (i != NULL) {
+					break;
+				}
+				p = p->pNext;
+			}
+			(*k) = i;
+		}
+		if (*k == 5) {
+			return p->data;
+		}
+		else {
+			T data;
+			return data;
+		}
+	}
 	T perebor() {
 		Node<T> *p = first;
 		print();
@@ -114,7 +136,6 @@ void List<T>::downloadInfoA(T data, char *path) {
 		cout << "Openning Error" << endl;
 	}
 	else {
-		clearList();
 		while (fin.read((char*)&data, sizeof(T))) {
 			addLastElement(data);
 		}
@@ -395,6 +416,7 @@ int List<T>::bisnes() {
 	return sum;
 }
 //вывод на экран
+
 template<typename T>
 void List<T>::print() {
 	Node<T> *p = first;
@@ -410,8 +432,6 @@ void List<T>::print() {
 	}
 	p->data.print(3);
 }
-
-//сортировка
 template<typename T>
 void List<T>::sort() {
 	{
@@ -625,7 +645,6 @@ void List<T>::downloadInfo(T data, char *path) {
 		cout << "Openning Error" << endl;
 	}
 	else {
-		clearList();
 		while (fin.read((char*)&data, sizeof(T))) {
 			addLastElement(data);
 		}

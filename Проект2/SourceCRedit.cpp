@@ -30,16 +30,16 @@ void Credit::takeCredit(Company &cmp, Bank &bn,int a,float money,int times) {
 }
 void Credit::print(int a) {
 	if (a == 1) {
-		cout << "|````````````|" << "````````````|" << "````````|" << "```````````|" << "``````|" << endl;
-		cout << "|  Компания  |" << "    Банк    |" << "  Сумма |" << " К выплате |" << " Срок |" << endl;
-		cout << "|````````````|" << "````````````|" << "````````|" << "```````````|" << "``````|" << endl;
+		cout << "|```````````````````|" << "```````````````````|" << "````````|" << "```````````|" << "````````|" << endl;
+		cout << "|      Компания     |" << "        Банк       |" << "  Сумма |" << " К выплате |" << "  Срок  |" << endl;
+		cout << "|```````````````````|" << "```````````````````|" << "````````|" << "```````````|" << "````````|" << endl;
 	}
 	if (a == 2) {
-		cout << "|" << setw(12) << company.nameofcompany << "|" << setw(12) << this->nameofbank << "|" << setw(8) << this->sum << "|" << setw(11) << (this->sum) + (this->sum*this->credittype.percent / 100 * this->times) << "|" << setw(6) << this->times << "|" << endl;
+		cout << "|" << setw(20) << company.nameofcompany << "|" << setw(20) << this->nameofbank << "|" << setw(8) << this->sum << "|" << setw(11) << (this->sum) + (this->sum*this->credittype.percent / 100 * this->times) << "|" << setw(8) << this->times << "|" << endl;
 		cout << "|````````````|" << "````````````|" << "````````|" << "```````````|" << "``````|" << endl;
 	}
 	if (a == 3) {
-		cout << "|" << setw(12) << company.nameofcompany << "|" << setw(12) << this->nameofbank << "|" << setw(8) << this->sum << "|" << setw(11) << (this->sum) + (this->sum*this->credittype.percent / 100 * this->times) << "|" << setw(6) << this->times << "|" << endl;
+		cout << "|" << setw(12) << company.nameofcompany << "|" << setw(12) << this->nameofbank << "|" << setw(8) << this->sum << "|" << setw(11) << (this->sum) + (this->sum*this->credittype.percent / 100 * this->times) << "|" << setw(8) << this->times << "|" << endl;
 		cout << "``````````````" << "`````````````" << "`````````" << "````````````" << "```````" << endl;
 	}
 }

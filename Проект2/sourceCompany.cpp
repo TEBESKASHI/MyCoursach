@@ -75,18 +75,6 @@ void Company::print(int a) {
 			cout << "`````````````````````" << "`````````````````````````" << "``````````````````" << "``````````````````" << endl;
 		}
 	}
-int Company::printC(int a) {
-	if (a == 0) {
-		cout << "\t\t\tЗдесь выводятся компании, прошедшие анализ" << endl;
-	}
-	if (this->rep == 2) {
-		cout << "Название компании: " << this->nameofcompany << endl;
-		cout << "Специализацию компании: " << this->specialization << endl;
-		cout << "Доходы компании: " << this->income << endl;
-		return 1;
-	}
-	else return 0;
-}
 int Company::selectSearchCriteria() {
 	int choice;
 	cout << "По чем ищем?" << endl;
@@ -96,8 +84,6 @@ int Company::selectSearchCriteria() {
 	choice = onlyint();
 	return choice;
 }
-
-//функция поиска продукта
 void Company::search(int a,int choice, char *input) {
 	if (begin != NULL) {
 		Debt *debt = begin;

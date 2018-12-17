@@ -22,15 +22,15 @@ char* onlystring(int N);
 void load(char *str);
 class Admin {
 protected:
-	char password[10];
-	char login[10];
+	char password[20];
+	char login[20];
 	int root;
 public:
 	void set() {
 		cout << "¬ведите логин: ";
-		strcpy(this->login,onlystring(10));
+		strcpy(this->login,onlystring(20));
 		cout << "¬ведите пароль: ";
-		strcpy(this->password, onlystring(10));
+		strcpy(this->password, onlystring(20));
 	}
 	void print(int a) {
 		if (strcmp(this->login, "admin") == 0 && strcmp(this->password, "admin") == 0) { return; }
@@ -47,7 +47,7 @@ public:
 		return 0;
 	}
 };
-class Bank {
+class Bank :public Admin{
 protected:
 	char nameofbank[20];
 public:
@@ -63,7 +63,8 @@ public:
 	void edit(int choice);
 	int selectFiltrCriteria();
 	void filtr(int choice, int a, int minAge, int maxAge);
-	int creditPrint();
+	int creditPrint(int type);
+	char* bankname();
 	//int selectFiltrCriteria();
 	//void filtr(int choice, int a, int minAge, int maxAge);
 
@@ -108,7 +109,6 @@ public:
 	void filtr(int choice, int a, int minAge, int maxAge);
 	float analis(float *p,string *s,int *rep);
 	void sort(Company &obj, Company &obj1);
-	int printC(int a);
 private:
 	class Debt {
 	public:
@@ -140,5 +140,5 @@ class Credit :public Bank{
 		float profit();
 		void takeCredit(Company &company, Bank &bank,int a,float money,int times);
 		void print(int a);
-		void setcur(int x, int y);
 };
+void setcur(int x, int y);

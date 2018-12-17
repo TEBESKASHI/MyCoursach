@@ -1,8 +1,26 @@
 #include "Header.h"
+void reverseStr(string& str)
+{
+	int n = str.length();
+	for (int i = 0; i < n / 2; i++)
+		swap(str[i], str[n - i - 1]);
+}
+char* Bank::bankname() {
+	return this->nameofbank;
+}
 void Bank::set() {
 	int a = 1;
 	cout << "Название банка: ";
 	strcpy(this->nameofbank, onlystring(20));
+	strcpy(this->login,this->nameofbank);
+	string s;
+	s = this->login;
+	reverseStr(s);
+	char *cstr = new char[s.length() + 1];
+	strcpy(cstr, s.c_str());
+	strcpy(this->password,cstr);
+	delete[] cstr;
+	this->root = 5;
 	cout << "Кредиты банка: ";
 	while (a ) {
 		system("cls");
@@ -48,36 +66,40 @@ void Bank::set() {
 		}
 	}
 }
-int Bank::creditPrint() {
+int Bank::creditPrint(int type) {
 	Credittype *credittype = this->begin;
 	int h = 0;
 	if (this->begin != NULL) {
-		cout << "|``````````````````|" << "`````````|" << endl;
-		cout << "| Название кредите |" << " Процент |" << endl;
-		cout << "|``````````````````|" << "`````````|" << endl;
-		while (credittype->next!= NULL) {
-			cout << "|" << setw(18) << credittype->creditname << "|" << setw(9) << credittype->percent << "|" << endl;
-			cout << "|``````````````````|" << "`````````|" << endl;
+		cout << "|```````````````````|" << "`````````|" << endl;
+		cout << "| Название кредите  |" << " Процент |" << endl;
+		cout << "|```````````````````|" << "`````````|" << endl;
+		while (credittype->next != NULL) {
+			cout << "|" << setw(19) << credittype->creditname << "|" << setw(10) << credittype->percent << "|" << endl;
+			cout << "|```````````````````|" << "``````````|" << endl;
 			credittype = credittype->next;
 			h++;
 		}
 		cout << "|" << setw(18) << credittype->creditname << "|" << setw(9) << credittype->percent << "|" << endl;
 		cout << "````````````````````" << "``````````" << endl;
 		h++;
-		int x;
-		while (true) {
-			cout << "Какой кредит вы выбираете?: ";
-			x = onlyint();
-			if (x <= h) {
-				break;
+		if (type == 1) {
+			int x;
+			while (true) {
+				cout << "Какой кредит вы выбираете?: ";
+				x = onlyint();
+				if (x <= h) {
+					break;
+				}
+				else cout << "Нет кредита с таким номером" << endl;
 			}
-			else cout << "Нет кредита с таким номером" << endl;
+			return x;
 		}
-		return x;
+		else {
+			cout << "В банке нет кредитов" << endl;
+			return 0;
+		}
 	}
-	else { cout << "В банке нет кредитов" << endl; 
-	return 0;
-	}
+	else return 0;
 }
 void Bank::print(int a) {
 	Credittype *credittype = this->begin;
@@ -87,16 +109,16 @@ void Bank::print(int a) {
 		credittype = credittype->next;
 	}
 	if (a == 1) {
-		cout << "|````````````````|" << "`````````````````````|" << endl;
-		cout << "| Название банка |" << " Количество кредитов |" << endl;
-		cout << "|````````````````|" << "`````````````````````|" << endl;
+		cout << "|```````````````````|" << "`````````````````````|" << endl;
+		cout << "|   Название банка  |" << " Количество кредитов |" << endl;
+		cout << "|```````````````````|" << "`````````````````````|" << endl;
 	}
 	if (a == 2) {
-		cout << "|" << setw(16) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
+		cout << "|" << setw(19) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
 		cout << "|````````````````|" << "`````````````````````|" << endl;
 	}
 	if (a == 3) {
-		cout << "|" << setw(16) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
+		cout << "|" << setw(19) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
 		cout << "``````````````````" << "``````````````````````" << endl;
 	}
 }
@@ -117,9 +139,9 @@ void Bank::search(int a,int choice, char *input) {
 		credittype = credittype->next;
 	}
 	if (a == 1) {
-		cout << "|````````````````|" << "`````````````````````|" << endl;
-		cout << "| Название банка |" << " Количество кредитов |" << endl;
-		cout << "|````````````````|" << "`````````````````````|" << endl;
+		cout << "|```````````````````|" << "`````````````````````|" << endl;
+		cout << "|   Название банка  |" << " Количество кредитов |" << endl;
+		cout << "|```````````````````|" << "`````````````````````|" << endl;
 	}
 	if (a == 2) {
 
@@ -127,8 +149,8 @@ void Bank::search(int a,int choice, char *input) {
 		case 1:
 		{
 			if (strcmp(this->nameofbank, input) == 0) {
-				cout << "|" << setw(16) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
-				cout << "|````````````````|" << "`````````````````````|" << endl;
+				cout << "|" << setw(19) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
+				cout << "|```````````````````|" << "`````````````````````|" << endl;
 			}
 			break;
 		}
@@ -139,8 +161,8 @@ void Bank::search(int a,int choice, char *input) {
 		case 1:
 		{
 			if (strcmp(this->nameofbank, input) == 0) {
-				cout << "|" << setw(16) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
-				cout << "``````````````````" << "``````````````````````" << endl;
+				cout << "|" << setw(19) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
+				cout << "|```````````````````|" << "`````````````````````|" << endl;
 			}
 			break;
 		}
@@ -185,20 +207,20 @@ void Bank::filtr(int choice, int a, int minAge, int maxAge) {
 	switch (choice) {
 	case 1: {
 		if (a == 1) {
-			cout << "|````````````````|" << "`````````````````````|" << endl;
-			cout << "| Название банка |" << " Количество кредитов |" << endl;
-			cout << "|````````````````|" << "`````````````````````|" << endl;
+			cout << "|```````````````````|" << "`````````````````````|" << endl;
+			cout << "|   Название банка  |" << " Количество кредитов |" << endl;
+			cout << "|```````````````````|" << "`````````````````````|" << endl;
 		}
 		else if (a == 2) {
 			if (h > minAge && h < maxAge) {
-				cout << "|" << setw(16) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
-				cout << "|````````````````|" << "`````````````````````|" << endl;
+				cout << "|" << setw(19) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
+				cout << "|```````````````````|" << "`````````````````````|" << endl;
 			}
 		}
 		else {
 			if (h > minAge && h < maxAge) {
-				cout << "|" << setw(16) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
-				cout << "``````````````````" << "``````````````````````" << endl;
+				cout << "|" << setw(19) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
+				cout << "|```````````````````|" << "`````````````````````|" << endl;
 			}
 		}
 		break;

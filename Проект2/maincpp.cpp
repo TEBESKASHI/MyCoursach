@@ -60,6 +60,46 @@ char* onlystring(int N) {
 	str[k] = '\0';
 	return str;
 }
+void bankMenu(Bank &bank) {
+	Admin admin;
+	char str[20];
+	strcpy(str, bank.bankname());
+	while (1) {
+		system("cls");
+		load("Меню управления банком");
+		cout << "\t\t\t\t\t\t\t\t\t\t\tБанк: " <<str<< endl;
+		cout << "1.Типы кредитов в банке" << endl;
+		cout << "2.Список активных кредитов" << endl;
+		cout << "3.Прибыль банка (Бизнес функция)" << endl;
+		cout << "0.Выход" << endl;
+		int x;
+		x = onlyint();
+		switch (x) {
+		case 1: {
+			system("cls");
+			bank.creditPrint(0);
+			system("pause");
+			break; }
+		case 2: {
+			system("cls");
+			/*cr.print();*/
+			system("pause");
+			break; }
+		case 3: {
+			system("cls");
+			int del;
+			cout << "Введите номер пользователя, которого желаете удалить: ";
+			del = onlyint();
+			del++;
+			cout << "Вы удалили:" << endl;
+			adm.deleteElement(del);
+			system("pause");
+			break; }
+		case 0:system("cls"); return; break;
+		default:system("cls"); cout << "Нет такого пункта меню" << endl; break;
+		}
+	}
+}
 void userMenu(List<Admin> &adm) {
 	Admin admin;
 	while (1) {
@@ -108,7 +148,7 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 		cout << "1.Анализ кредитоспособности" << endl;
 		cout << "2.Взять кредит" << endl;
 		cout << "3.Активные кредиты" << endl;
-		cout << "4.Заработок банка (Бизнес функция)" << endl;
+		cout << "4.Заработок всех банков (Бизнес функция)" << endl;
 		cout << "0.Выход" << endl;
 		int x;
 		x = onlyint();
@@ -137,7 +177,13 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			int rep=0;
 			company = cmp.perebor(&h);
 			bank = bn.perebor();
-			h=bank.creditPrint();
+			h=bank.creditPrint(1);
+			if (h == 0) {
+				system("cls");
+				cout << "В банке нет кредитов" << endl;
+				system("pause");
+				continue;
+			}
 			float sum;
 			float p = 0;
 			string s;
@@ -161,23 +207,6 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			system("cls");
 			credit.takeCredit(company,bank,h,money,times);
 			cr.addLastElement(credit);
-			cout << "\n\n\n\n\n\n\n\n\n\n\n\t\t\t\t\t\t" << endl;
-			HANDLE kek = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleTextAttribute(kek, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
-			string st = "    /\n\t\t\t\t\t\t\\  /\n\t\t\t\t\t\t \\/";
-			string k = "";
-			int i = 0;
-			while (i < st.length()) {
-				setcur(0, 0);
-				Sleep(100);
-				k += st[i];
-				cout << k;
-				i++;
-			}
-			HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-			SetConsoleTextAttribute(hStdOut, FOREGROUND_GREEN | FOREGROUND_INTENSITY | FOREGROUND_BLUE | FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_INTENSITY);
-			system("pause");
-			system("color 0F");
 			break;
 		}
 		case 3: {
@@ -548,6 +577,9 @@ int main() {
 	List<Bank>bn;
 	List<Credit>cr;
 	Credit credit;
+	bn.downloadInfo(bank,"BankDatabase.txt");
+	cmp.downloadInfo(company,"CompanyDatabase.txt");
+	cr.downloadInfo(credit,"CreditDatabase.txt");
 	SetConsoleCtrlHandler(CtrlHandler, TRUE);
 	adm.downloadInfoA(admin,"Admin.txt");
 	while (1) {
@@ -558,11 +590,11 @@ int main() {
 		switch (i) {
 		case 1: {
 			cout << "Введите логин: ";
-			char log[10];
-			strcpy(log,onlystring(10));
+			char log[20];
+			strcpy(log,onlystring(20));
 			cout << "Введите пароль: ";
-			char pas[10];
-			strcpy(pas, onlystring(10));
+			char pas[20];
+			strcpy(pas, onlystring(20));
 			int i = adm.compare(log, pas);
 			if (i == 1) {
 				system("cls");
@@ -572,7 +604,16 @@ int main() {
 				system("cls");
 				menu(adm,cmp,bn,cr);
 			}
-			else { system("cls"); cout << "Проверьте правильность ввода данных" << endl; }
+			else {
+				int k = 0;
+				bank = bn.compare(log, pas, &k);
+				if (k == 5) {
+					bankMenu(bank);
+				}
+				else {
+					system("cls"); cout << "Проверьте правильность ввода данных" << endl;
+				}
+			}
 			break; }
 		case 2:adm.saveA("Admin.txt"); exit(0); break;
 		default:system("cls"); cout << "Нет такого  пункта меню" << endl; break;
