@@ -91,9 +91,11 @@ protected:
 	char specialization[20];
 	float income;
 	float outcome;
+	int assign;
 	int rep;
 public:
 	Company() {
+		this->assign == NULL;
 		this->outcome = NULL;
 		this->rep = NULL;
 		this->income = NULL;
@@ -101,6 +103,7 @@ public:
 		this->end = NULL;
 	}
 	void set();
+	void assigned(int a);
 	void print(int a);
 	int selectSearchCriteria();
 	void search(int a, int choice, char *input);

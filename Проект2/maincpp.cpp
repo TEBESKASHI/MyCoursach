@@ -175,7 +175,6 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			float money;
 			int times;
 			int rep=0;
-			company = cmp.perebor(&h);
 			bank = bn.perebor();
 			h=bank.creditPrint(1);
 			if (h == 0) {
@@ -187,6 +186,7 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			float sum;
 			float p = 0;
 			string s;
+			company = cmp.perebors(&h);
 			sum = company.analis(&p, &s, &rep);
 			if (rep != 2) {
 				system("cls");
@@ -194,6 +194,7 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 				system("pause");
 				break;
 			}
+			company = cmp.needed(h);
 			while (true) {
 				cout << "Сумма: ";
 				money = onlyint();
@@ -582,6 +583,7 @@ int main() {
 	cr.downloadInfo(credit,"CreditDatabase.txt");
 	SetConsoleCtrlHandler(CtrlHandler, TRUE);
 	adm.downloadInfoA(admin,"Admin.txt");
+	adm.print();
 	while (1) {
 		cout << "1.Вход" << endl;
 		cout << "2.Выход" << endl;

@@ -29,6 +29,7 @@ void Credit::takeCredit(Company &cmp, Bank &bn,int a,float money,int times) {
 	this->sum = money;
 	this->times = times;
 	strcpy(this->localTime, asctime(localtime(&result)));
+	company.assign = 2;
 	cout << "Кредит " << this->credittype.creditname << " с процентом " << this->credittype.percent << endl;
 	cout << "Сумма: " << money << endl;
 	cout << "Срок: " << times << endl;

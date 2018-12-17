@@ -54,6 +54,17 @@ public:
 			return data;
 		}
 	}
+	T needed(int h) {
+		h--;
+		int k=0;
+		Node<T> *p = first;
+		while (k != h) {
+			p = p->pNext;
+			k++;
+		}
+		p->data.assigned(2);
+		return p->data;
+	}
 	T perebor() {
 		Node<T> *p = first;
 		print();
@@ -95,6 +106,29 @@ public:
 			p = p->pNext;
 			a++;
 		}
+		return p->data;
+	}
+	T perebors(int *delelem) {
+		Node<T> *p = first;
+		print();
+		int number;
+		int a = 0;
+		int k = getSize();
+		number = onlyint();
+		(*delelem) = number;
+		number--;
+		cout << endl;
+		while (number >= k || number<0) {
+			cout << "Нет такого номера, повторите ввод: ";
+			number = onlyint();
+			number--;
+			system("cls");
+		}
+		while (a != number) {
+			p = p->pNext;
+			a++;
+		}
+			p->data.assigned(1);
 		return p->data;
 	}
 private:
@@ -426,7 +460,7 @@ int List<T>::bisnesSingle(char *nameb) {
 	}
 	while (p != NULL)
 	{
-		sum += p->data.profitSingle();
+		sum += p->data.profitSingle(nameb);
 		p = p->pNext;
 	}
 	return sum;

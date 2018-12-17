@@ -1,11 +1,29 @@
-﻿  maincpp.cpp
-c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(202): warning C4244: =: преобразование "int" в "float", возможна потеря данных
-c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(574): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
-c:\users\user\desktop\курсовая ооп\mycoursach\проект2\listh.h(414): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
-  c:\users\user\desktop\курсовая ооп\mycoursach\проект2\listh.h(405): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
-  c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(224): note: выполняется компиляция ссылки на экземпляр шаблон функции "int List<Credit>::bisnes(void)"
-  c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(88): note: выполняется компиляция ссылки на экземпляр шаблон класс "List<Credit>"
-  SourceCRedit.cpp
+﻿  SourceCRedit.cpp
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\header.h(98): warning C4553: ==: оператор не имеет результата; возможно, имелся в виду "="
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\sourcecredit.cpp(7): warning C4244: return: преобразование "float" в "int", возможна потеря данных
   Создание кода...
-c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(556): warning C4715: CtrlHandler: значение возвращается не при всех путях выполнения
+  Компиляция...
+  sourceCompany.cpp
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\header.h(98): warning C4553: ==: оператор не имеет результата; возможно, имелся в виду "="
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\sourcecompany.cpp(9): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\sourcecompany.cpp(30): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\sourcecompany.cpp(39): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\sourcecompany.cpp(194): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\sourcecompany.cpp(207): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+  sourceBank.cpp
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\header.h(98): warning C4553: ==: оператор не имеет результата; возможно, имелся в виду "="
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\sourcebank.cpp(4): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\sourcebank.cpp(43): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\sourcebank.cpp(52): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+  maincpp.cpp
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\header.h(98): warning C4553: ==: оператор не имеет результата; возможно, имелся в виду "="
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(200): warning C4244: =: преобразование "int" в "float", возможна потеря данных
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(572): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\listh.h(447): warning C4244: +=: преобразование "float" в "int", возможна потеря данных
+  c:\users\user\desktop\курсовая ооп\mycoursach\проект2\listh.h(438): note: при компиляции функции-члена "<Нет данных>" класса класс <Нет данных>
+  c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(222): note: выполняется компиляция ссылки на экземпляр шаблон функции "int List<Credit>::bisnes(void)"
+  c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(88): note: выполняется компиляция ссылки на экземпляр шаблон класс "List<Credit>"
+  Создание кода...
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\maincpp.cpp(554): warning C4715: CtrlHandler: значение возвращается не при всех путях выполнения
+c:\users\user\desktop\курсовая ооп\mycoursach\проект2\sourcebank.cpp(102): warning C4715: Bank::creditPrint: значение возвращается не при всех путях выполнения
   Проект2.vcxproj -> C:\Users\User\Desktop\Курсовая ООП\MyCoursach\x64\Debug\Проект2.exe

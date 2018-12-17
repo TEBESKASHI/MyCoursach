@@ -225,7 +225,19 @@ void Company::sort(Company &obj, Company &obj1) {
 		std::swap(obj,obj1);
 	}
 }
+void Company::assigned(int a) {
+	if (a == 1) {
+		this->assign = 2;
+	}
+	if (a == 2) {
+		this->rep = 2;
+	}
+}
 float Company::analis(float *p,string *s,int *rep) {
+	if (this->assign == 2 && this->rep==2) {
+		(*rep) = 1;
+		return 0;
+	}
 		Debt *debt = begin;
 		float sum = 0;
 		while (debt != NULL) {
