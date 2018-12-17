@@ -16,6 +16,7 @@ public:
 	void downloadInfoA(T data, char *path);
 	void decrypt();
 	int bisnes();
+	int bisnesSingle(char *nameb);
 	int getSize() { return size; }
 	//для перехода по добавленным элементам
 	//index- номер возвращаемого элемента
@@ -24,6 +25,7 @@ public:
 	void save(char *path);
 	void print();
 	void sort();
+	void printSingle(char *nameb);
 	void search();
 	void edit();
 	void filtr();
@@ -133,7 +135,6 @@ void List<T>::downloadInfoA(T data, char *path) {
 	ifstream fin;
 	fin.open(path);
 	if (!fin.is_open()) {
-		cout << "Openning Error" << endl;
 	}
 	else {
 		while (fin.read((char*)&data, sizeof(T))) {
@@ -150,7 +151,6 @@ void List<T>::saveA(char *path) {
 	Node<T> *p = first;
 	fout.open(path, ios_base::out | ios_base::trunc);
 	if (!fout.is_open()) {
-		cout << "Openning Error" << endl;
 	}
 	else {
 		while (p != NULL) {
@@ -416,7 +416,21 @@ int List<T>::bisnes() {
 	return sum;
 }
 //вывод на экран
-
+template<typename T>
+int List<T>::bisnesSingle(char *nameb) {
+	Node<T> *p = first;
+	int sum = 0;
+	if (p == NULL) {
+		cout << "Ничего нету" << endl;
+		return 0;
+	}
+	while (p != NULL)
+	{
+		sum += p->data.profitSingle();
+		p = p->pNext;
+	}
+	return sum;
+}
 template<typename T>
 void List<T>::print() {
 	Node<T> *p = first;
@@ -431,6 +445,23 @@ void List<T>::print() {
 		p = p->pNext;
 	}
 	p->data.print(3);
+}
+template<typename T>
+void List<T>::printSingle(char *nameb) {
+	Node<T> *p = first;
+	if (p == NULL) {
+		cout << "Ничего нету" << endl;
+		return;
+	}
+	p->data.printSingle(nameb,1);
+	while (p->pNext != NULL)
+	{
+		p->data.printSingle(nameb,2);
+		p = p->pNext;
+	}
+	if (p != NULL) {
+		p->data.printSingle(nameb,3);
+	}
 }
 template<typename T>
 void List<T>::sort() {
@@ -642,7 +673,6 @@ void List<T>::downloadInfo(T data, char *path) {
 	ifstream fin;
 	fin.open(path);
 	if (!fin.is_open()) {
-		cout << "Openning Error" << endl;
 	}
 	else {
 		while (fin.read((char*)&data, sizeof(T))) {
@@ -659,7 +689,6 @@ void List<T>::save(char *path) {
 	Node<T> *p = first;
 	fout.open(path, ios_base::out | ios_base::trunc);
 	if (!fout.is_open()) {
-		cout << "Openning Error" << endl;
 	}
 	else {
 		while (p != NULL) {

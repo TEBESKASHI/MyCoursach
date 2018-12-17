@@ -11,7 +11,7 @@ char* Bank::bankname() {
 void Bank::set() {
 	int a = 1;
 	cout << "Название банка: ";
-	strcpy(this->nameofbank, onlystring(20));
+	strcpy(this->nameofbank, onlystring(18));
 	strcpy(this->login,this->nameofbank);
 	string s;
 	s = this->login;
@@ -38,7 +38,7 @@ void Bank::set() {
 		if (this->begin == NULL) {
 			Credittype *credit = new Credittype;
 			cout << "Введите название кредита: ";
-			strcpy(credit->creditname, onlystring(20));
+			strcpy(credit->creditname, onlystring(15));
 			cout << "Процент: ";
 			credit->percent = onlyint();
 			credit->next = NULL;
@@ -47,7 +47,7 @@ void Bank::set() {
 		else {
 			Credittype *credit = new Credittype;
 			cout << "Введите название кредита: ";
-			strcpy(credit->creditname, onlystring(20));
+			strcpy(credit->creditname, onlystring(15));
 			cout << "Процент: ";
 			credit->percent = onlyint();
 			credit->next = NULL;
@@ -70,17 +70,17 @@ int Bank::creditPrint(int type) {
 	Credittype *credittype = this->begin;
 	int h = 0;
 	if (this->begin != NULL) {
-		cout << "|```````````````````|" << "`````````|" << endl;
-		cout << "| Название кредите  |" << " Процент |" << endl;
-		cout << "|```````````````````|" << "`````````|" << endl;
+		cout << "|````````````````````|" << "`````````|" << endl;
+		cout << "|  Название кредита  |" << " Процент |" << endl;
+		cout << "|````````````````````|" << "`````````|" << endl;
 		while (credittype->next != NULL) {
-			cout << "|" << setw(19) << credittype->creditname << "|" << setw(10) << credittype->percent << "|" << endl;
-			cout << "|```````````````````|" << "``````````|" << endl;
+			cout << "|" << setw(20) << credittype->creditname << "|" << setw(9) << credittype->percent << "|" << endl;
+			cout << "|````````````````````|" << "`````````|" << endl;
 			credittype = credittype->next;
 			h++;
 		}
-		cout << "|" << setw(18) << credittype->creditname << "|" << setw(9) << credittype->percent << "|" << endl;
-		cout << "````````````````````" << "``````````" << endl;
+		cout << "|" << setw(20) << credittype->creditname << "|" << setw(9) << credittype->percent << "|" << endl;
+		cout << "``````````````````````" << "```````````" << endl;
 		h++;
 		if (type == 1) {
 			int x;
@@ -94,12 +94,11 @@ int Bank::creditPrint(int type) {
 			}
 			return x;
 		}
-		else {
-			cout << "В банке нет кредитов" << endl;
-			return 0;
-		}
 	}
-	else return 0;
+	else {
+		cout << "В банке нет кредитов" << endl;
+		return 0;
+	}
 }
 void Bank::print(int a) {
 	Credittype *credittype = this->begin;
@@ -115,11 +114,11 @@ void Bank::print(int a) {
 	}
 	if (a == 2) {
 		cout << "|" << setw(19) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
-		cout << "|````````````````|" << "`````````````````````|" << endl;
+		cout << "|```````````````````|" << "`````````````````````|" << endl;
 	}
 	if (a == 3) {
 		cout << "|" << setw(19) << this->nameofbank << "|" << setw(21) << h << "|" << endl;
-		cout << "``````````````````" << "``````````````````````" << endl;
+		cout << "`````````````````````" << "``````````````````````" << endl;
 	}
 }
 int Bank::selectSearchCriteria() {

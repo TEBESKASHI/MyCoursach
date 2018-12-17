@@ -2,6 +2,12 @@
 float Credit::profit() {
 	return (this->sum*this->credittype.percent / 100 * this->times);
 }
+int Credit::profitSingle(char *nameb) {
+	if (strcmp(nameb, this->nameofbank) == 0) {
+		return (this->sum*this->credittype.percent / 100 * this->times);
+	}
+	else return 0;
+}
 void Credit::takeCredit(Company &cmp, Bank &bn,int a,float money,int times) {
 	Credittype *credittype = bn.begin;
 	if (cmp.rep==1) {
@@ -35,11 +41,30 @@ void Credit::print(int a) {
 		cout << "|```````````````````|" << "```````````````````|" << "````````|" << "```````````|" << "````````|" << endl;
 	}
 	if (a == 2) {
-		cout << "|" << setw(20) << company.nameofcompany << "|" << setw(20) << this->nameofbank << "|" << setw(8) << this->sum << "|" << setw(11) << (this->sum) + (this->sum*this->credittype.percent / 100 * this->times) << "|" << setw(8) << this->times << "|" << endl;
-		cout << "|````````````|" << "````````````|" << "````````|" << "```````````|" << "``````|" << endl;
+		cout << "|" << setw(19) << company.nameofcompany << "|" << setw(19) << this->nameofbank << "|" << setw(8) << this->sum << "|" << setw(11) <<(double) (this->sum) + (this->sum*this->credittype.percent / 100 * this->times) << "|" << setw(8) << this->times << "|" << endl;
+		cout << "|```````````````````|" << "```````````````````|" << "````````|" << "```````````|" << "````````|" << endl;
 	}
 	if (a == 3) {
-		cout << "|" << setw(12) << company.nameofcompany << "|" << setw(12) << this->nameofbank << "|" << setw(8) << this->sum << "|" << setw(11) << (this->sum) + (this->sum*this->credittype.percent / 100 * this->times) << "|" << setw(8) << this->times << "|" << endl;
-		cout << "``````````````" << "`````````````" << "`````````" << "````````````" << "```````" << endl;
+		cout << "|" << setw(19) << company.nameofcompany << "|" << setw(19) << this->nameofbank << "|" << setw(8) << this->sum << "|" << setw(11) << (double)(this->sum) + (this->sum*this->credittype.percent / 100 * this->times) << "|" << setw(8) << this->times << "|" << endl;
+		cout << "`````````````````````" << "````````````````````" << "`````````" << "````````````" << "`````````" << endl;
+	}
+}
+void Credit::printSingle(char *nameb,int a) {
+	if (a == 1) {
+		cout << "|```````````````````|" << "```````````````````|" << "````````|" << "```````````|" << "````````|" << endl;
+		cout << "|      Компания     |" << "        Банк       |" << "  Сумма |" << " К выплате |" << "  Срок  |" << endl;
+		cout << "|```````````````````|" << "```````````````````|" << "````````|" << "```````````|" << "````````|" << endl;
+	}
+	if (a == 2) {
+		if (strcmp(nameb, this->nameofbank) == 0) {
+			cout << "|" << setw(19) << company.nameofcompany << "|" << setw(19) << this->nameofbank << "|" << setw(8) << this->sum << "|" << setw(11) << (double)(this->sum) + (this->sum*this->credittype.percent / 100 * this->times) << "|" << setw(8) << this->times << "|" << endl;
+			cout << "|```````````````````|" << "```````````````````|" << "````````|" << "```````````|" << "````````|" << endl;
+		}
+	}
+	if (a == 3) {
+		if (strcmp(nameb, this->nameofbank) == 0) {
+			cout << "|" << setw(19) << company.nameofcompany << "|" << setw(19) << this->nameofbank << "|" << setw(8) << this->sum << "|" << setw(11) << (double)(this->sum) + (this->sum*this->credittype.percent / 100 * this->times) << "|" << setw(8) << this->times << "|" << endl;
+			cout << "`````````````````````" << "````````````````````" << "`````````" << "````````````" << "`````````" << endl;
+		}
 	}
 }

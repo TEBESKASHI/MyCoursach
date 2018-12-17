@@ -17,10 +17,12 @@ int onlyint() {
 	{
 		number = _getch();
 		if (isdigit(number) != 0) {
-			cout << number;
-			int x = (int)number - 48;
-			all = all * 10 + x;
-			k++;
+			if (k < 6) {
+				cout << number;
+				int x = (int)number - 48;
+				all = all * 10 + x;
+				k++;
+			}
 		}
 		else if (number == 8 && k != 0) {
 			cout << "\b \b";
@@ -28,7 +30,7 @@ int onlyint() {
 			all = (all - all % 10) / 10;
 		}
 		else if (number == '\n') { break; }
-	} while (k<8 && number != 13);
+	} while (number != 13);
 	cout << endl;
 	return all;
 }
@@ -60,8 +62,9 @@ char* onlystring(int N) {
 	str[k] = '\0';
 	return str;
 }
-void bankMenu(Bank &bank) {
+void bankMenu(Bank &bank,List<Credit> &cr) {
 	Admin admin;
+	Credit credit;
 	char str[20];
 	strcpy(str, bank.bankname());
 	while (1) {
@@ -82,17 +85,14 @@ void bankMenu(Bank &bank) {
 			break; }
 		case 2: {
 			system("cls");
-			/*cr.print();*/
+			cr.printSingle(bank.bankname());
 			system("pause");
 			break; }
 		case 3: {
 			system("cls");
-			int del;
-			cout << "Введите номер пользователя, которого желаете удалить: ";
-			del = onlyint();
-			del++;
-			cout << "Вы удалили:" << endl;
-			adm.deleteElement(del);
+			int sum;
+			sum = cr.bisnesSingle(bank.bankname());
+			cout << "Прибыль банка: " << sum << endl;
 			system("pause");
 			break; }
 		case 0:system("cls"); return; break;
@@ -341,9 +341,9 @@ int printMenu(List<Company> &cmp, List<Bank> &bn) {
 	}
 }
 int addMenu(List<Company> &cmp,List<Bank> &bn) {
-	Company company;
-	Bank bank;
 	while (1) {
+		Bank bank;
+		Company company;
 		system("cls");
 		load("Меню добавления");
 		cout << "1.Добавление компании" << endl;
@@ -608,7 +608,7 @@ int main() {
 				int k = 0;
 				bank = bn.compare(log, pas, &k);
 				if (k == 5) {
-					bankMenu(bank);
+					bankMenu(bank,cr);
 				}
 				else {
 					system("cls"); cout << "Проверьте правильность ввода данных" << endl;

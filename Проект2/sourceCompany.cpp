@@ -2,9 +2,9 @@
 void Company::set() {
 	int a = 1;
 	cout << "Название компании: ";
-	strcpy(this->nameofcompany, onlystring(20));
+	strcpy(this->nameofcompany, onlystring(18));
 	cout << "Специализация компании: ";
-	strcpy(this->specialization, onlystring(20));
+	strcpy(this->specialization, onlystring(18));
 	cout << "Доход: ";
 	this->income = onlyint();
 	cout << "Долги: ";
@@ -33,7 +33,6 @@ void Company::set() {
 		}
 		else {
 			Debt *debt = new Debt;
-			cout << "Кому должна: ";
 			cout << "Кому должна: ";
 			strcpy(debt->nameofdebt, onlystring(15));
 			cout << "Сумма долга: ";
@@ -227,7 +226,6 @@ void Company::sort(Company &obj, Company &obj1) {
 	}
 }
 float Company::analis(float *p,string *s,int *rep) {
-	if (begin != NULL) {
 		Debt *debt = begin;
 		float sum = 0;
 		while (debt != NULL) {
@@ -245,8 +243,6 @@ float Company::analis(float *p,string *s,int *rep) {
 		}
 		(*rep) = this->rep;
 		return sum;
-	}
-	else return 0;
 }
 void Company::filtr(int choice,  int a, int minAge, int maxAge) {
 	if (begin != NULL) {
