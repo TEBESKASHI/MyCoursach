@@ -502,12 +502,14 @@ void List<T>::sort() {
 	{
 		if (first != NULL) {
 			Node<T> *p = first;
+			int h = 0;
+			h = p->data.SelectSortCriteria();
 			Node<T> *pn = first;
 			while (p->pNext != NULL)
 			{
 				pn = p->pNext;
 				while (pn != NULL) {
-					p->data.sort(p->data, pn->data);
+					p->data.sort(p->data, pn->data, h);
 					pn = pn->pNext;
 				}
 				p = p->pNext;

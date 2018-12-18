@@ -217,12 +217,25 @@ int Company::selectFiltrCriteria() {
 	choice = onlyint();
 	return choice;
 }
+int Company::SelectSortCriteria() {
+	cout << "1.Сортировать по названию компании" << endl;
+	cout << "0.Выход" << endl;
+	int choice;
+	choice = onlyint();
+	return choice;
+}
 bool names(char left[30], char right[30]) {
 	return strcmp(left, right) > 0;
 }
-void Company::sort(Company &obj, Company &obj1) {
-	if (names(obj.nameofcompany, obj1.nameofcompany)) {
-		std::swap(obj,obj1);
+void Company::sort(Company &obj, Company &obj1, int choice) {
+	switch (choice) {
+	case 1: {
+		if (names(obj.nameofcompany, obj1.nameofcompany)) {
+			std::swap(obj, obj1);
+		}
+		break;
+	case 0:return; break;
+	}
 	}
 }
 void Company::assigned(int a) {

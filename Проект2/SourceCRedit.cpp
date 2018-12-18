@@ -17,7 +17,7 @@ void Credit::takeCredit(Company &cmp, Bank &bn,int a,float money,int times) {
 	}
 	int h = 0;
 	a--;
-	while (h<a) {
+	while (h!=a) {
 		credittype = credittype->next;
 	}
 	strcpy(this->credittype.creditname,credittype->creditname);

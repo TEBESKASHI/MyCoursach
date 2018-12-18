@@ -66,6 +66,8 @@ public:
 	void filtr(int choice, int a, int minAge, int maxAge);
 	int creditPrint(int type);
 	char* bankname();
+	int SelectSortCriteria();
+	void sort(Bank &obj, Bank &obj1, int choice);
 	//int selectFiltrCriteria();
 	//void filtr(int choice, int a, int minAge, int maxAge);
 
@@ -103,6 +105,7 @@ public:
 		this->end = NULL;
 	}
 	void set();
+	int SelectSortCriteria();
 	void assigned(int a);
 	void print(int a);
 	int selectSearchCriteria();
@@ -112,7 +115,7 @@ public:
 	int selectFiltrCriteria();
 	void filtr(int choice, int a, int minAge, int maxAge);
 	float analis(float *p,string *s,int *rep);
-	void sort(Company &obj, Company &obj1);
+	void sort(Company &obj, Company &obj1, int choice);
 private:
 	class Debt {
 	public:

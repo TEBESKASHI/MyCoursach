@@ -66,6 +66,27 @@ void Bank::set() {
 		}
 	}
 }
+bool nameb(char left[30], char right[30]) {
+	return strcmp(left, right) > 0;
+}
+int Bank::SelectSortCriteria() {
+	cout << "1.Сортировать по названию банка" << endl;
+	cout << "0.Выход" << endl;
+	int choice;
+	choice = onlyint();
+	return choice;
+}
+void Bank::sort(Bank &obj, Bank &obj1, int choice) {
+	switch (choice) {
+	case 1: {
+		if (nameb(obj.nameofbank, obj1.nameofbank)) {
+			std::swap(obj, obj1);
+		}
+		break;
+	case 0:return; break;
+	}
+	}
+}
 int Bank::creditPrint(int type) {
 	Credittype *credittype = this->begin;
 	int h = 0;

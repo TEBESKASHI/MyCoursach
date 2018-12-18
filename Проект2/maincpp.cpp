@@ -62,6 +62,25 @@ char* onlystring(int N) {
 	str[k] = '\0';
 	return str;
 }
+void sortMenu(List<Bank> &bn,List<Company> &cmp) {
+	while (1) {
+		system("cls");
+		cout << "1.Сортировка по компаниям" << endl;
+		cout << "2.Сортировка по банкам" << endl;
+		cout << "0.Выход" << endl;
+		int x;
+		x = onlyint();
+		switch (x) {
+		case 1: {
+			bn.sort();
+			break;
+		}
+		case 2:cmp.sort(); break;
+		case 0:return; break;
+		default:cout << "Так такого пункта меню" << endl; break;
+		}
+	}
+}
 void bankMenu(Bank &bank,List<Credit> &cr) {
 	Admin admin;
 	Credit credit;
@@ -155,6 +174,13 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 		switch (x) {
 		case 1:
 		{
+			int size=cmp.getSize();
+			if (size < 1) {
+				system("cls");
+				cout << "Нет компаний для анализа" << endl;
+				system("pause");
+				break;
+			}
 			int rep = 0;
 			company = cmp.perebor();
 			float sum;
@@ -175,6 +201,13 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			float money;
 			int times;
 			int rep=0;
+			int size = bn.getSize();
+			if (size < 1) {
+				system("cls");
+				cout << "Нет банков, где вы можете взять кредит" << endl;
+				system("pause");
+				break;
+			}
 			bank = bn.perebor();
 			h=bank.creditPrint(1);
 			if (h == 0) {
@@ -185,8 +218,9 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 			}
 			float sum;
 			float p = 0;
+			int num = 0;
 			string s;
-			company = cmp.perebors(&h);
+			company = cmp.perebors(&num);
 			sum = company.analis(&p, &s, &rep);
 			if (rep != 2) {
 				system("cls");
@@ -194,7 +228,7 @@ int analiz(List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 				system("pause");
 				break;
 			}
-			company = cmp.needed(h);
+			company = cmp.needed(num);
 			while (true) {
 				cout << "Сумма: ";
 				money = onlyint();
@@ -472,7 +506,7 @@ int menu(List<Admin> &adm, List<Company> &cmp,List<Bank> &bn,List<Credit> &cr) {
 		}
 		case 3:editMenu(cmp,bn); break;
 		case 8: {
-			cmp.sort();
+			sortMenu(bn,cmp);
 			break;
 		}
 		case 5: {analiz(cmp,bn,cr); break; }
